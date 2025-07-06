@@ -5,6 +5,7 @@ import {
   MantineProvider,
 } from '@mantine/core';
 import '@mantine/core/styles.css';
+import { theme } from '@/utils/theme';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -22,7 +23,7 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body>
-        <MantineProvider>{children}</MantineProvider>
+        <MantineProvider theme={theme}>{children}</MantineProvider>
       </body>
     </html>
   );
