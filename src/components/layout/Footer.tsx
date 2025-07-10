@@ -1,6 +1,14 @@
 'use client';
 
-import { Anchor, AppShell, Flex, Stack, Text } from '@mantine/core';
+import {
+  Anchor,
+  AppShell,
+  Flex,
+  Stack,
+  Text,
+  useMantineTheme,
+  useMantineColorScheme,
+} from '@mantine/core';
 import {
   IconAddressBook,
   IconBriefcase,
@@ -8,32 +16,32 @@ import {
   IconSticker2,
   IconUser,
 } from '@tabler/icons-react';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 const navigations = [
   {
-    icon: <IconUser stroke={2} />,
+    icon: IconUser,
     label: 'Me',
     href: '/',
   },
   {
-    icon: <IconSticker2 stroke={2} />,
+    icon: IconSticker2,
     label: 'Blog',
-    href: '/blog',
+    href: '/blogs',
   },
   {
-    icon: <IconBriefcase stroke={2} />,
+    icon: IconBriefcase,
     label: 'Projects',
     href: '/projects',
   },
   {
-    icon: <IconAddressBook stroke={2} />,
+    icon: IconAddressBook,
     label: 'Contact',
     href: '/contact',
   },
   {
-    icon: <IconDots stroke={2} />,
+    icon: IconDots,
     label: 'More',
     href: '/more',
   },
@@ -41,12 +49,22 @@ const navigations = [
 
 export function Footer() {
   const pathname = usePathname();
+  const theme = useMantineTheme();
+  const { colorScheme } = useMantineColorScheme();
+
+  // Determine the default (non-selected) color based on the color scheme
+  const defaultColor =
+    colorScheme === 'dark' ? theme.colors.gray[6] : theme.colors.gray[7];
 
   return (
     <AppShell.Footer hiddenFrom='sm'>
       <Flex h='100%' gap='md' justify='space-evenly' align='center'>
         {navigations.map((item, index) => {
           const selected = pathname === item.href;
+          const Icon = item.icon;
+
+          // The color for selected items. red[6] works well in both themes usually.
+          const selectedColor = theme.colors.red[6];
 
           return (
             <Anchor
@@ -54,12 +72,16 @@ export function Footer() {
               href={item.href}
               component={Link}
               underline='never'
-              c={selected ? 'red' : 'black'}
-              onMouseOver={(e) => (e.currentTarget.style.color = 'red')}
-              onMouseOut={(e) => (e.currentTarget.style.color = 'black')}
+              style={{
+                color: selected ? selectedColor : defaultColor,
+                textAlign: 'center',
+              }}
             >
               <Stack gap={5} align='center'>
-                {item.icon}
+                <Icon
+                  size={24}
+                  color={selected ? selectedColor : defaultColor}
+                />
                 <Text fz='xs' fw='bold'>
                   {item.label}
                 </Text>

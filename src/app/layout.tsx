@@ -4,8 +4,9 @@ import {
   mantineHtmlProps,
   MantineProvider,
 } from '@mantine/core';
-import '@mantine/core/styles.css';
 import { theme } from '@/utils/theme';
+import '@mantine/core/styles.css';
+import '@mantine/spotlight/styles.css';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
