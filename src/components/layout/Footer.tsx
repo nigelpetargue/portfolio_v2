@@ -6,7 +6,6 @@ import {
   Flex,
   Stack,
   Text,
-  useMantineTheme,
   useMantineColorScheme,
 } from '@mantine/core';
 import {
@@ -16,8 +15,9 @@ import {
   IconSticker2,
   IconUser,
 } from '@tabler/icons-react';
-import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import classes from './footer.module.css';
 
 const navigations = [
   {
@@ -49,12 +49,10 @@ const navigations = [
 
 export function Footer() {
   const pathname = usePathname();
-  const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
 
   // Determine the default (non-selected) color based on the color scheme
-  const defaultColor =
-    colorScheme === 'dark' ? theme.colors.gray[6] : theme.colors.gray[7];
+  const defaultColor = colorScheme === 'dark' ? classes.dark : classes.light;
 
   return (
     <AppShell.Footer h={80} hiddenFrom='sm'>
@@ -63,25 +61,18 @@ export function Footer() {
           const selected = pathname === item.href;
           const Icon = item.icon;
 
-          // The color for selected items. red[6] works well in both themes usually.
-          const selectedColor = theme.colors.red[6];
-
           return (
             <Anchor
               key={index}
               href={item.href}
               component={Link}
               underline='never'
-              style={{
-                color: selected ? selectedColor : defaultColor,
-                textAlign: 'center',
+              classNames={{
+                root: selected ? classes.selected : defaultColor,
               }}
             >
               <Stack gap={5} align='center'>
-                <Icon
-                  size={24}
-                  color={selected ? selectedColor : defaultColor}
-                />
+                <Icon size={24} />
                 <Text fz='xs' fw='bold'>
                   {item.label}
                 </Text>

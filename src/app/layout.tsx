@@ -6,9 +6,9 @@ import {
   MantineProvider,
 } from '@mantine/core';
 import { theme } from '@/utils/theme';
+import { Footer, Header, Main } from '@/components/layout';
 import '@mantine/core/styles.css';
 import '@mantine/spotlight/styles.css';
-import { Footer, Header, Main } from '@/components/layout';
 
 export const metadata: Metadata = {
   title: 'Create Next App',

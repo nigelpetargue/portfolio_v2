@@ -19,7 +19,7 @@ export default function ThemeToggle() {
         setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')
       }
       variant='transparent'
-      color='gray'
+      color='gray[7]'
       aria-label='Toggle color scheme'
     >
       <IconSun className={cx(classes.icon, classes.light)} stroke={1.5} />

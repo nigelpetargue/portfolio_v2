@@ -49,7 +49,7 @@ export function Header() {
         <Group align='center'>
           <ActionIcon
             variant='transparent'
-            color='gray'
+            color='gray[7]'
             aria-label='Settings'
             onClick={spotlight.open}
           >
