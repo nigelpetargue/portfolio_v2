@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import {
+  AppShell,
   ColorSchemeScript,
   mantineHtmlProps,
   MantineProvider,
@@ -7,6 +8,7 @@ import {
 import { theme } from '@/utils/theme';
 import '@mantine/core/styles.css';
 import '@mantine/spotlight/styles.css';
+import { Footer, Header, Main } from '@/components/layout';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -24,7 +26,13 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        <MantineProvider theme={theme}>
+          <AppShell>
+            <Header />
+            <Main>{children}</Main>
+            <Footer />
+          </AppShell>
+        </MantineProvider>
       </body>
     </html>
   );

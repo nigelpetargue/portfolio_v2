@@ -27,8 +27,8 @@ const navigations = [
   },
   {
     icon: IconSticker2,
-    label: 'Blog',
-    href: '/blogs',
+    label: 'Articles',
+    href: '/articles',
   },
   {
     icon: IconBriefcase,
@@ -57,7 +57,7 @@ export function Footer() {
     colorScheme === 'dark' ? theme.colors.gray[6] : theme.colors.gray[7];
 
   return (
-    <AppShell.Footer hiddenFrom='sm'>
+    <AppShell.Footer h={80} hiddenFrom='sm'>
       <Flex h='100%' gap='md' justify='space-evenly' align='center'>
         {navigations.map((item, index) => {
           const selected = pathname === item.href;

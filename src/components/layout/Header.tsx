@@ -43,7 +43,7 @@ const actions: SpotlightActionData[] = [
 
 export function Header() {
   return (
-    <AppShell.Header hiddenFrom='sm'>
+    <AppShell.Header h={77} hiddenFrom='sm'>
       <Flex h='100%' align='center' justify='space-between' px='lg'>
         <Avatar color='red' name='Nigel' size='md' />
         <Group align='center'>
