@@ -7,7 +7,11 @@ import { IconMoon, IconSun } from '@tabler/icons-react';
 import cx from 'clsx';
 import classes from './theme.module.css';
 
-export default function ThemeToggle() {
+interface Props {
+  variant: string;
+}
+
+export default function ThemeToggle({ variant }: Props) {
   const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme('light', {
     getInitialValueInEffect: true,
@@ -18,9 +22,11 @@ export default function ThemeToggle() {
       onClick={() =>
         setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')
       }
-      variant='transparent'
+      variant={variant}
       color='gray[7]'
       aria-label='Toggle color scheme'
+      size='lg'
+      radius='md'
     >
       <IconSun className={cx(classes.icon, classes.light)} stroke={1.5} />
       <IconMoon className={cx(classes.icon, classes.dark)} stroke={1.5} />

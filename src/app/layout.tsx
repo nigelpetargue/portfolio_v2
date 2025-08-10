@@ -5,10 +5,16 @@ import {
   mantineHtmlProps,
   MantineProvider,
 } from '@mantine/core';
-import { theme } from '@/utils/theme';
+import { theme } from '@/utils';
 import { Footer, Header, Main } from '@/components/layout';
+import { Instrument_Sans } from 'next/font/google';
 import '@mantine/core/styles.css';
 import '@mantine/spotlight/styles.css';
+
+const instrumentSans = Instrument_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -21,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' {...mantineHtmlProps}>
+    <html lang='en' {...mantineHtmlProps} className={instrumentSans.className}>
       <head>
         <ColorSchemeScript />
       </head>

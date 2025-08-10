@@ -1,86 +1,66 @@
 'use client';
 
 import {
-  Anchor,
   AppShell,
-  Flex,
+  Group,
   Stack,
   Text,
-  useMantineColorScheme,
+  UnstyledButton,
+  useMantineTheme,
+  rem,
 } from '@mantine/core';
 import {
-  IconAddressBook,
-  IconBriefcase,
+  IconFileText,
+  IconPencil,
+  IconList,
+  IconUsers,
   IconDots,
-  IconSticker2,
-  IconUser,
 } from '@tabler/icons-react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import classes from './footer.module.css';
+import { useState } from 'react';
 
-const navigations = [
-  {
-    icon: IconUser,
-    label: 'Me',
-    href: '/',
-  },
-  {
-    icon: IconSticker2,
-    label: 'Articles',
-    href: '/articles',
-  },
-  {
-    icon: IconBriefcase,
-    label: 'Projects',
-    href: '/projects',
-  },
-  {
-    icon: IconAddressBook,
-    label: 'Contact',
-    href: '/contact',
-  },
-  {
-    icon: IconDots,
-    label: 'More',
-    href: '/more',
-  },
+// Navigation items based on the provided image
+const navItems = [
+  { icon: IconFileText, label: 'Blog' },
+  { icon: IconPencil, label: 'Case Studies' },
+  { icon: IconList, label: 'Categories' },
+  { icon: IconUsers, label: 'Membership' },
+  { icon: IconDots, label: 'More' },
 ];
 
 export function Footer() {
-  const pathname = usePathname();
-  const { colorScheme } = useMantineColorScheme();
+  const theme = useMantineTheme();
+  // State to track the active link, 'Blog' is active by default in the image
+  const [active, setActive] = useState('Blog');
 
-  // Determine the default (non-selected) color based on the color scheme
-  const defaultColor = colorScheme === 'dark' ? classes.dark : classes.light;
+  const items = navItems.map((item) => {
+    const isActive = item.label === active;
+    return (
+      <UnstyledButton
+        key={item.label}
+        onClick={() => setActive(item.label)}
+        style={{ flex: 1 }} // Ensure each button takes equal space
+      >
+        <Stack align='center' gap={rem(4)}>
+          <item.icon
+            style={{ width: rem(24), height: rem(24) }}
+            color={isActive ? theme.colors.red[6] : theme.colors.gray[7]}
+            stroke={1.5}
+          />
+          <Text c={isActive ? 'red.6' : 'dimmed'} fz='xs' fw={500}>
+            {item.label}
+          </Text>
+        </Stack>
+      </UnstyledButton>
+    );
+  });
 
   return (
-    <AppShell.Footer h={80} hiddenFrom='sm'>
-      <Flex h='100%' gap='md' justify='space-evenly' align='center'>
-        {navigations.map((item, index) => {
-          const selected = pathname === item.href;
-          const Icon = item.icon;
-
-          return (
-            <Anchor
-              key={index}
-              href={item.href}
-              component={Link}
-              underline='never'
-              classNames={{
-                root: selected ? classes.selected : defaultColor,
-              }}
-            >
-              <Stack gap={5} align='center'>
-                <Icon size={24} />
-                <Text fz='xs' fw='bold'>
-                  {item.label}
-                </Text>
-              </Stack>
-            </Anchor>
-          );
-        })}
-      </Flex>
+    // The AppShell.Footer is not changed, only its children.
+    // I've added `withBorder` to get the top line shown in the reference image.
+    <AppShell.Footer h={80} hiddenFrom='sm' withBorder>
+      <Group h='100%' wrap='nowrap' justify='space-around'>
+        {items}
+      </Group>
     </AppShell.Footer>
   );
 }
