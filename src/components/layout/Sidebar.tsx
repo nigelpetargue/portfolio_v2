@@ -26,12 +26,9 @@ import {
   IconSearch,
   IconBook,
 } from '@tabler/icons-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ThemeToggle from '../theme';
 
-// --- MOCK DATA ---
-// I've created this based on your image.
-// You should replace this with your actual navigation data.
 const navs = [
   { label: 'Blog', icon: IconPencil, href: '/blog' },
   { label: 'About Nigel', icon: IconSquareLetterN, href: '/about' },
@@ -56,11 +53,13 @@ function CustomNavigationButton({
   active,
   onClick,
   isCollapsed,
+  mounted,
 }: {
   item: (typeof navs)[0];
   active: boolean;
   onClick: () => void;
   isCollapsed: boolean;
+  mounted: boolean;
 }) {
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
@@ -87,8 +86,8 @@ function CustomNavigationButton({
         width: '100%',
         padding: theme.spacing.sm,
         borderRadius: theme.radius.md,
-        color: activeColor,
-        backgroundColor: activeBackgroundColor,
+        color: mounted ? activeColor : 'inherit',
+        backgroundColor: mounted ? activeBackgroundColor : 'inherit',
         justifyContent: isCollapsed ? 'center' : 'flex-start',
       }}
       className='hover:bg-gray-100 dark:hover:bg-dark-600'
@@ -116,10 +115,13 @@ export function Sidebar() {
   // Using state to track the active link, defaulting to 'Blog'
   const [activeLink, setActiveLink] = useState('Blog');
   const [isCollapsed, setIsCollapsed] = useState(true);
+  const [mounted, setMounted] = useState(false);
 
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
+
+  useEffect(() => setMounted(true), []);
 
   return (
     <Paper
@@ -189,6 +191,7 @@ export function Sidebar() {
                 active={item.label === activeLink}
                 onClick={() => setActiveLink(item.label)}
                 isCollapsed={isCollapsed}
+                mounted={mounted}
               />
             ))}
           </Stack>
