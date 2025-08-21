@@ -55,7 +55,7 @@ export function Header() {
           >
             <IconSearch size={24} stroke={1.5} />
           </ActionIcon>
-          <ThemeSwitch variant='transparent' />
+          <ThemeSwitch variant='transparent' color='gray[7]' stroke={1.5} />
           <Button color='red' radius='sm'>
             Download CV
           </Button>

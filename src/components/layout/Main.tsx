@@ -1,9 +1,10 @@
 'use client';
 
-import { AppShell, em, Flex } from '@mantine/core';
+import { AppShell, Divider, em, Flex, Paper } from '@mantine/core';
 import { ReactNode } from 'react';
-import { Sidebar } from './Sidebar';
 import { useMediaQuery } from '@mantine/hooks';
+import { Sidebar } from './Sidebar';
+import { Aside } from './Aside';
 
 export function Main({ children }: { children: ReactNode }) {
   const small = useMediaQuery(`(max-width: ${em(750)})`);
@@ -18,7 +19,20 @@ export function Main({ children }: { children: ReactNode }) {
         py='md'
       >
         <Sidebar />
-        {children}
+        <Paper
+          withBorder
+          shadow='sm'
+          radius='lg'
+          flex={1}
+          display='flex'
+          dir='row'
+        >
+          {children}
+
+          <Divider orientation='vertical' />
+
+          <Aside />
+        </Paper>
       </Flex>
     </AppShell.Main>
   );

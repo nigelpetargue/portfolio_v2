@@ -1,13 +1,11 @@
-import type { Metadata } from 'next';
+import type { Metadata } from 'next/types';
 import {
-  AppShell,
   ColorSchemeScript,
   mantineHtmlProps,
   MantineProvider,
 } from '@mantine/core';
-import { theme } from '@/utils';
-import { Footer, Header, Main } from '@/components/layout';
 import { Instrument_Sans } from 'next/font/google';
+import { theme } from '@/utils';
 import '@mantine/core/styles.css';
 import '@mantine/spotlight/styles.css';
 
@@ -32,13 +30,7 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body>
-        <MantineProvider theme={theme}>
-          <AppShell>
-            <Header />
-            <Main>{children}</Main>
-            <Footer />
-          </AppShell>
-        </MantineProvider>
+        <MantineProvider theme={theme}>{children}</MantineProvider>
       </body>
     </html>
   );

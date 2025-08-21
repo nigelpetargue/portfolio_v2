@@ -28,21 +28,26 @@ import {
 } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import ThemeToggle from '../theme';
+import { useRouter } from 'next/navigation';
 
 const navs = [
-  { label: 'Blog', icon: IconPencil, href: '/blog' },
-  { label: 'About Nigel', icon: IconSquareLetterN, href: '/about' },
+  { label: 'About Nigel', icon: IconSquareLetterN, href: '/' },
+  { label: 'Blog', icon: IconPencil, href: '/blogs' },
   { label: 'Case Studies', icon: IconBook, href: '/case-studies' },
   {
     label: 'Working Experince',
     icon: IconBriefcase2,
-    href: '/categories',
+    href: '/working-experience',
   },
-  { label: 'Educational Background', icon: IconSchool, href: '/membership' },
+  {
+    label: 'Educational Background',
+    icon: IconSchool,
+    href: '/educational-background',
+  },
   {
     label: 'Certificates',
     icon: IconRosetteDiscountCheck,
-    href: '/style-guide',
+    href: '/certificates',
   },
 ];
 
@@ -117,6 +122,8 @@ export function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [mounted, setMounted] = useState(false);
 
+  const router = useRouter();
+
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
@@ -189,7 +196,10 @@ export function Sidebar() {
                 key={item.label}
                 item={item}
                 active={item.label === activeLink}
-                onClick={() => setActiveLink(item.label)}
+                onClick={() => {
+                  setActiveLink(item.label);
+                  router.push(item.href);
+                }}
                 isCollapsed={isCollapsed}
                 mounted={mounted}
               />
@@ -253,7 +263,7 @@ export function Sidebar() {
                   transition: 'opacity 0.2s ease-in-out',
                 }}
               >
-                Download CV
+                Download Resume
               </Button>
             ) : (
               <ActionIcon
